@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <base target="_top">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Random Survey DOAE4</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+    <link rel="stylesheet" href="https://domoritz.github.io/leaflet-locatecontrol/dist/L.Control.Locate.min.css" />
+    <script src="https://domoritz.github.io/leaflet-locatecontrol/dist/L.Control.Locate.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+    <style>
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        #map {
+            height: 100%;
+            width: 100vw;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 320px;
+            height: 100%;
+            background: #ffffff;
+            border-left: 1px solid #ddd;
+            padding: 20px;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            display: none;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .sidebar h5 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: #333;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 5px;
+        }
+
+        .sidebar label {
+            font-weight: 600;
+            margin-top: 10px;
+            display: block;
+            color: #555;
+        }
+
+        .sidebar input[type="text"],
+        .sidebar select,
+        .sidebar input[type="file"] {
+            width: 100%;
+            padding: 8px 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            background: #fafafa;
+            transition: border-color 0.2s;
+        }
+
+        .sidebar input[type="text"]:focus,
+        .sidebar select:focus,
+        .sidebar input[type="file"]:focus {
+            border-color: #007bff;
+            outline: none;
+            background: #fff;
+        }
+
+        .sidebar button {
+            display: inline-block;
+            margin-right: 8px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .sidebar button[type="submit"] {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .sidebar button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .sidebar button[type="button"] {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .sidebar button[type="button"]:hover {
+            background-color: #5a6268;
+        }
+
+        .sidebar img {
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .sidebar p {
+            margin: 6px 0;
+            font-size: 0.95rem;
+            color: #333;
+        }
+
+        .sidebar p span {
+            font-weight: 500;
+            color: #007bff;
+        }
+
+        .image-preview {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background-color: #f9f9f9;
+        }
+
+        .image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-preview button {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background-color: rgba(255, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 2px 5px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='map'></div>
+    <div id="sidebar" class="sidebar">
+        <form id="editForm">
+            <h5>ข้อมูลจุด</h5>
+            <p><b>สถานะ:</b> <span id="show_status">-</span></p>
+            <p><b>จังหวัด:</b> <span id="show_prov"></span></p>
+            <p><b>อำเภอ:</b> <span id="show_amp"></span></p>
+            <p><b>ประเภท:</b> <span id="show_type"></span></p>
+            <p><b>พืช:</b> <span id="show_agri"></span></p>
+            <p id="saveStatus" style="color: green; font-weight: bold;"></p>
+            <hr>
+            <h5>แก้ไขข้อมูล</h5>
+            <label>ผลการตรวจสอบ:</label><br>
+            <select name="result" id="result">
+                <option value="1-ถูกต้อง ทั้งพืช ตำแหน่งแปลง ขอบเขตแปลง">1-ถูกต้อง ทั้งพืช ตำแหน่งแปลง ขอบเขตแปลง
+                </option>
+                <option value="2-ไม่ถูกต้อง พืชผิด">2-ไม่ถูกต้อง พืชผิด</option>
+                <option value="3-ไม่ถูกต้อง ตำแหน่งแปลงผิด">3-ไม่ถูกต้อง ตำแหน่งแปลงผิด</option>
+                <option value="4-ไม่ถูกต้อง ขอบเขตแปลงผิด">4-ไม่ถูกต้อง ขอบเขตแปลงผิด</option>
+                <option value="5-ไม่ถูกต้อง ทั้งพืชผิด ตำแหน่งแปลงผิด">5-ไม่ถูกต้อง ทั้งพืชผิด ตำแหน่งแปลงผิด</option>
+                <option value="6-ไม่ถูกต้อง ทั้งพืชผิด ขอบเขตแปลงผิด">6-ไม่ถูกต้อง ทั้งพืชผิด ขอบเขตแปลงผิด</option>
+                <option value="7-ไม่ถูกต้อง ตำแหน่งแปลงผิด ขอบเขตแปลงผิด">7-ไม่ถูกต้อง ตำแหน่งแปลงผิด ขอบเขตแปลงผิด
+                </option>
+                <option value="8-ไม่ถูกต้อง ทั้งพืช ตำแหน่งแปลงผิด ขอบเขตแปลงผิด">8-ไม่ถูกต้อง ทั้งพืช ตำแหน่งแปลงผิด
+                    ขอบเขตแปลงผิด</option>
+            </select><br>
+            <label>เลขกิจกรรมที่ถูกต้อง:</label><br>
+            <input type="text" name="act_true" id="act_true" maxlength="9"><br>
+            <label>เลขกิจกรรมที่ไม่ถูกต้อง:</label><br>
+            <input type="text" name="act_false" id="act_false" maxlength="9"><br>
+            <label>อัปโหลดรูปภาพ:</label><br>
+            <input type="file" name="image" id="image" multiple><br>
+            <div id="imagePreviewContainer" style="display:flex; flex-wrap:wrap; gap:10px; margin-top:10px;"></div>
+            <input type="hidden" name="pid" id="pid">
+            <button type="submit">บันทึก</button>
+            <button type="button" onclick="closeSidebar()">ปิด</button>
+        </form>
+    </div>
+    <script>
+        const map = L.map('map', {
+            center: [16.332763518437282, 102.81707559870394],
+            zoom: 8,
+            zoomDelta: 0.25,
+            zoomSnap: 0
+        });
+        const baseLayers = {
+            'Google': L.tileLayer('http://www.google.cn/maps/vt?lyrs=s@189&gl=cn&x={x}&y={y}&z={z}', {
+                attribution: 'Google'
+            }),
+            'Hybrid': L.tileLayer('http://{s}.google.com/vt?lyrs=s,h&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
+            }).addTo(map),
+            'Imagery': L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri'
+            })
+        };
+
+        let pointLayer; // เก็บ marker layer สำหรับรีโหลด
+
+        function getColorByCropName(name) {
+            switch (name) {
+                case "ข้าวเหนียว": return "#f2ff00";
+                case "ข้าวโพดเลี้ยงสัตว์":
+                case "ข้าวโพดเลี้ยงสัตว์(ต้นสด)":
+                case "ข้าวโพดเลี้ยงสัตว์(เมล็ดพันธุ์)": return "#ff8000";
+                case "มันสำปะหลังโรงงาน": return "#ff0000";
+                case "มะพร้าว": return "#00fff2";
+                default: return "#ffffff";
+            }
+        }
+        function createPolygonLayer(url, zIndex) {
+            return L.geoJSON(null, {
+                style: function (feature) {
+                    return {
+                        color: getColorByCropName(feature.properties.detail_nam),
+                        weight: 2,
+                        opacity: 1,
+                        fillOpacity: 0
+                    };
+                },
+                onEachFeature: function (feature, layer) {
+                    layer.bindPopup(`
+                        <b>ปี:</b> ${feature.properties.year_act || '-'}<br>
+                        <b>เลขกิจกรรม:</b> ${feature.properties.parcel_act || '-'}<br>
+                        <b>ชนิดพืช:</b> ${feature.properties.detail_nam || '-'}<br>
+                        <b>วันปลูก:</b> ${feature.properties.plant_date || '-'}<br>
+                        <b>วันเก็บเกี่ยว:</b> ${feature.properties.produce_da || '-'}<br>
+                        <b>จังหวัด:</b> ${feature.properties.p_name || '-'}<br>
+                        <b>อำเภอ:</b> ${feature.properties.a_name || '-'}<br>
+                        <b>ตำบล:</b> ${feature.properties.t_name || '-'}<br>
+                        <b>หมู่:</b> ${feature.properties.moo || '-'}<br>
+                        <b>ชื่อเกษตรกร:</b> ${feature.properties.firstname || '-'}<br>
+                        <b>ประเภทเอกสารสิทธิ์:</b> ${feature.properties.doc_type_n || '-'} ไร่<br>
+                        <b>เลขที่เอกสารสิทธิ์:</b> ${feature.properties.doc_no || '-'}<br>
+                        <b>พื้นที่เอกสารสิทธิ์:</b> ${feature.properties.doc_area || '-'} ไร่<br>
+                        <b>พื้นที่แจ้งปลูก:</b> ${feature.properties.act_rai_or || '-'} ไร่<br>
+                         <b>พื้นที่วาดแปลง:</b> ${feature.properties.parcel_are || '-'} ไร่<br>
+                    `);
+                }
+            }).on('add', function () {
+                this.eachLayer(function (layer) {
+                    layer.bringToFront();
+                });
+            });
+        }
+        function loadPolygon(url, zIndex, layerGroup, overlayName) {
+            const layer = createPolygonLayer(url, zIndex);
+            $.getJSON(url, data => {
+                layer.addData(data);
+            });
+            layerGroup[overlayName] = layer.addTo(map);
+        }
+        const overlayLayers = {};
+        const polygons = [
+            { url: 'polygon_survey_loei_2565.geojson', name: 'แปลง จ.เลย 2565' },
+            { url: 'polygon_survey_loei_2566.geojson', name: 'แปลง จ.เลย 2566' },
+            { url: 'polygon_survey_loei_2567.geojson', name: 'แปลง จ.เลย 2567' },
+            { url: 'polygon_survey_kalasin_2565.geojson', name: 'แปลง จ.กาฬสินธุ์ 2565' },
+            { url: 'polygon_survey_kalasin_2566.geojson', name: 'แปลง จ.กาฬสินธุ์ 2566' },
+            { url: 'polygon_survey_kalasin_2567.geojson', name: 'แปลง จ.กาฬสินธุ์ 2567' },
+            { url: 'polygon_survey_kalasin_2568.geojson', name: 'แปลง จ.กาฬสินธุ์ 2568' },
+        ];
+        polygons.forEach((item, index) => {
+            loadPolygon(item.url, index, overlayLayers, item.name);
+        });
+        function getColorByAgri(agri) {
+            switch (agri) {
+                case "ข้าวเหนียว": return "#f2ff00";
+                case "ข้าวโพดเลี้ยงสัตว์": return "#ff8000";
+                case "มันสำปะหลัง": return "#ff0000";
+                case "มะพร้าว": return "#00fff2";
+                default: return "#ffffff";
+            }
+        }
+        function openSidebar(data) {
+            document.getElementById('sidebar').style.display = 'block';
+            // ✅ เคลียร์ข้อความสถานะการบันทึก
+            document.getElementById('saveStatus').textContent = "";
+            document.getElementById('saveStatus').style.color = "green";
+            // แสดงข้อมูลทั่วไป
+            document.getElementById('show_status').textContent = data.status && data.status.trim() !== ''
+                ? data.status
+                : 'ยังไม่ได้เก็บข้อมูล';
+            document.getElementById('show_prov').textContent = data.prov || '-';
+            document.getElementById('show_amp').textContent = data.amp || '-';
+            document.getElementById('show_type').textContent = data.type || '-';
+            document.getElementById('show_agri').textContent = data.agri || '-';
+            const previewImage = document.getElementById('previewImage');
+            const imageContainer = document.getElementById('imagePreviewContainer');
+            imageContainer.innerHTML = ''; // ล้างภาพเก่า
+
+            if (data.image && data.image.includes("http")) {
+                const urls = data.image.split(',');
+                urls.forEach(url => {
+                    const div = document.createElement('div');
+                    div.className = 'image-preview';
+                    const img = document.createElement('img');
+                    img.src = url.trim();
+                    div.appendChild(img);
+                    imageContainer.appendChild(div);
+                });
+            }
+            // ฟิลด์ที่แก้ไขได้
+            document.getElementById('pid').value = data.pid || '';
+            document.getElementById('result').value = data.result || '';
+            document.getElementById('act_true').value = data.act_true || '';
+            document.getElementById('act_false').value = data.act_false || '';
+        }
+        function closeSidebar() {
+            document.getElementById('sidebar').style.display = 'none';
+        }
+        function createPointsFromSheet(csvUrl, layerName) {
+            if (pointLayer) {
+                map.removeLayer(pointLayer); // ลบชั้นเดิมก่อน
+            }
+            const layer = L.layerGroup().addTo(map);
+            pointLayer = layer;
+            overlayLayers[layerName] = layer;
+            Papa.parse(csvUrl, {
+                download: true,
+                header: true,
+                complete: function (results) {
+                    results.data.forEach(row => {
+                        if (row.lat && row.lng) {
+                            const lat = parseFloat(row.lat);
+                            const lng = parseFloat(row.lng);
+                            // ✅ ตรวจสอบว่ามีการบันทึกแล้วหรือยัง
+                            const saved = row.status && row.status.trim() !== "" && row.status !== "ยังไม่ได้เก็บข้อมูล";
+                            const marker = L.circleMarker([lat, lng], {
+                                radius: 6,
+                                fillColor: saved ? "#28a745" : getColorByAgri(row.agri),
+                                color: "#000",
+                                weight: 1,
+                                opacity: 1,
+                                fillOpacity: 0.8
+                            });
+                            marker.on('click', () => openSidebar(row));
+                            marker.addTo(layer);
+                        }
+                    });
+                }
+            });
+        }
+        // 🔁 เปลี่ยน URL ด้านล่างให้เป็นลิงก์ CSV ที่ได้จากการ Publish Google Sheets
+        createPointsFromSheet('https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8P6KN5qzHR3ulSPl41_aSNlD_-KxqUwDSM4VYOBeMWFqBJTiSKWTCmLizkHk491Pvd1o_fqeUtrjn/pub?output=csv', 'ตำแหน่งแปลง');
+        function loadBoundaryPolygon(url, name, color = "#0000ff", dashArray = "4") {
+            const layer = L.geoJSON(null, {
+                style: {
+                    color: color,
+                    weight: 3,
+                    dashArray: dashArray,
+                    fillOpacity: 0
+                },
+                onEachFeature: function (feature, layer) {
+                    const nameProp = feature.properties.t_name_t2 || feature.properties.a_name_t2 || feature.properties.p_name_t2;
+                    layer.bindPopup("" + nameProp);
+                }
+            });
+            $.getJSON(url, data => layer.addData(data));
+            overlayLayers[name] = layer;
+        }
+        //loadBoundaryPolygon('tambol.geojson', 'ขอบเขตตำบล', '#000000');
+        //loadBoundaryPolygon('amphoe.geojson', 'ขอบเขตอำเภอ', '#000000', '3');
+        //loadBoundaryPolygon('province.geojson', 'ขอบเขตจังหวัด', '#000000', '1');
+        L.control.layers(baseLayers, overlayLayers, { position: 'bottomleft', collapsed: true }).addTo(map);
+        L.control.locate({
+            strings: { title: "Show me where I am" }
+        }).addTo(map);
+        document.getElementById('image').addEventListener('change', function (e) {
+            const files = Array.from(e.target.files);
+            const container = document.getElementById('imagePreviewContainer');
+            container.innerHTML = ''; // เคลียร์เก่า
+            files.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = function (event) {
+                    const previewDiv = document.createElement('div');
+                    previewDiv.className = 'image-preview';
+                    const img = document.createElement('img');
+                    img.src = event.target.result;
+                    const btn = document.createElement('button');
+                    btn.textContent = '✕';
+                    btn.addEventListener('click', () => {
+                        files.splice(index, 1);
+                        const newFileList = new DataTransfer();
+                        files.forEach(f => newFileList.items.add(f));
+                        document.getElementById('image').files = newFileList.files;
+                        previewDiv.remove();
+                    });
+                    previewDiv.appendChild(img);
+                    previewDiv.appendChild(btn);
+                    container.appendChild(previewDiv);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+        // ฟังก์ชันแปลงไฟล์เป็น base64
+        function convertFilesToBase64(fileList) {
+            const files = Array.from(fileList);
+            const promises = files.map(file => new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            }));
+            return Promise.all(promises);
+        }
+        document.getElementById('editForm').addEventListener('submit', async function (e) {
+            e.preventDefault();
+
+            const pid = document.getElementById('pid').value;
+            const result = document.getElementById('result').value;
+            const act_true = document.getElementById('act_true').value;
+            const act_false = document.getElementById('act_false').value;
+            const prov = document.getElementById('show_prov').textContent;
+            const amp = document.getElementById('show_amp').textContent;
+            const type = document.getElementById('show_type').textContent;
+            const agri = document.getElementById('show_agri').textContent;
+
+            const files = document.getElementById('image').files;
+
+            // ⚡ แปลงไฟล์ภาพเป็น Base64
+            async function toBase64(file) {
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onload = () => resolve(reader.result);
+                    reader.onerror = reject;
+                    reader.readAsDataURL(file);
+                });
+            }
+
+            const imageBase64List = [];
+            for (let i = 0; i < files.length; i++) {
+                const base64 = await toBase64(files[i]);
+                imageBase64List.push(base64);
+            }
+
+            const payload = {
+                pid,
+                result,
+                act_true,
+                act_false,
+                prov,
+                amp,
+                type,
+                agri,
+                images: JSON.stringify(imageBase64List)
+            };
+
+            const statusEl = document.getElementById('saveStatus');
+            statusEl.textContent = "⏳ กำลังบันทึกข้อมูล...";
+
+            try {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbyG9qzSfCqov0B3w3gou2QOqR7UJcDZ3yxSCgznD5Tyn2cbhx-XN0wH9iIkAEzVhRve/exec', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: new URLSearchParams(payload)
+                });
+
+                const resultResponse = await response.json();
+                if (resultResponse.status === 'success') {
+                    statusEl.textContent = "✅ เก็บข้อมูลแล้ว";
+                    document.getElementById('show_status').textContent = "✅ เก็บข้อมูลแล้ว";
+                    const timestamp = new Date().getTime();
+                    createPointsFromSheet(`https://docs.google.com/spreadsheets/d/e/2PACX-1vQ8P6KN5qzHR3ulSPl41_aSNlD_-KxqUwDSM4VYOBeMWFqBJTiSKWTCmLizkHk491Pvd1o_fqeUtrjn/pub?output=csv&t=${timestamp}`, 'ตำแหน่งแปลง');
+                    setTimeout(closeSidebar, 1500);
+                } else {
+                    statusEl.textContent = "❌ เกิดข้อผิดพลาด: " + resultResponse.message;
+                    statusEl.style.color = "red";
+                }
+            } catch (error) {
+                statusEl.textContent = "⚠️ ไม่สามารถเชื่อมต่อได้: " + error;
+                statusEl.style.color = "red";
+            }
+        });
+    </script>
+</body>
+
+</html>
