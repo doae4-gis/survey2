@@ -167,6 +167,10 @@
             <p><b>อำเภอ:</b> <span id="show_amp"></span></p>
             <p><b>ประเภท:</b> <span id="show_type"></span></p>
             <p><b>พืช:</b> <span id="show_agri"></span></p>
+            <input type="hidden" name="lat" id="lat">
+            <input type="hidden" name="lng" id="lng">
+            <p><b>นำทาง:</b> <span id="navi">-</span></p>
+
             <p id="saveStatus" style="color: green; font-weight: bold;"></p>
             <hr>
             <h5>แก้ไขข้อมูล</h5>
@@ -251,6 +255,7 @@
                         <b>ตำบล:</b> ${feature.properties.t_name || '-'}<br>
                         <b>หมู่:</b> ${feature.properties.moo || '-'}<br>
                         <b>ชื่อเกษตรกร:</b> ${feature.properties.firstname || '-'}<br>
+                        <b>นามสกุลเกษตรกร:</b> ${feature.properties.surname || '-'}<br>
                         <b>ประเภทเอกสารสิทธิ์:</b> ${feature.properties.doc_type_n || '-'} ไร่<br>
                         <b>เลขที่เอกสารสิทธิ์:</b> ${feature.properties.doc_no || '-'}<br>
                         <b>พื้นที่เอกสารสิทธิ์:</b> ${feature.properties.doc_area || '-'} ไร่<br>
@@ -306,6 +311,17 @@
             document.getElementById('show_amp').textContent = data.amp || '-';
             document.getElementById('show_type').textContent = data.type || '-';
             document.getElementById('show_agri').textContent = data.agri || '-';
+
+            const lat = data.lat || '';
+            const lng = data.lng || '';
+            if (lat && lng) {
+                const link = `http://maps.google.com/maps?q=${lat},${lng}`;
+                document.getElementById('navi').innerHTML = `<a href="${link}" target="_blank">คลิกนำทาง</a>`;
+            } else {
+                document.getElementById('navi').textContent = '-';
+            }
+
+
             const previewImage = document.getElementById('previewImage');
             const imageContainer = document.getElementById('imagePreviewContainer');
             imageContainer.innerHTML = ''; // ล้างภาพเก่า
@@ -436,6 +452,9 @@
             const amp = document.getElementById('show_amp').textContent;
             const type = document.getElementById('show_type').textContent;
             const agri = document.getElementById('show_agri').textContent;
+            const lat = document.getElementById('lat').value;
+            const lng = document.getElementById('lng').value;
+
 
             const files = document.getElementById('image').files;
 
@@ -464,6 +483,8 @@
                 amp,
                 type,
                 agri,
+                lat,
+                lng,
                 images: JSON.stringify(imageBase64List)
             };
 
@@ -471,7 +492,7 @@
             statusEl.textContent = "⏳ กำลังบันทึกข้อมูล...";
 
             try {
-                const response = await fetch('https://script.google.com/macros/s/AKfycbyG9qzSfCqov0B3w3gou2QOqR7UJcDZ3yxSCgznD5Tyn2cbhx-XN0wH9iIkAEzVhRve/exec', {
+                const response = await fetch('https://script.google.com/macros/s/AKfycbwFGDkzmLPAAVtqzwHPQxzbKH_6RJK2jxaZSvyQM7EVZnnYopgUn3E6yJv8sJIMptuZ/exec', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                     body: new URLSearchParams(payload)
