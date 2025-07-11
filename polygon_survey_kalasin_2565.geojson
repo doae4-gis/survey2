@@ -1,14 +1,440 @@
 {
-"type": "FeatureCollection",
-"name": "polygon_survey_kalasin_2565",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { "p_name": "กาฬสินธุ์", "a_name": "นามน", "t_name": "สงเปลือย", "year_act": 2565, "firstname": "บุญเรียม", "surname": "จันทร์แวว", "type_name": "พืชไร่", "detail_name": "ข้าวโพดเลี้ยงสัตว์", "breed_name": null, "plant_date": 20221219, "produce_date": 20230419, "act_rai_ori": 2.0, "doc_type_name": "โฉนด/น.ส.4จ", "doc_no": 2499, "doc_area": 3.3275, "moo": 5, "parcel_act": 178424727, "parcel_are": 2.0524985927868098 }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 103.783598, 16.630201 ], [ 103.783898, 16.630222 ], [ 103.783923, 16.629298 ], [ 103.783618, 16.629298 ], [ 103.783598, 16.630201 ] ] ] ] } },
-{ "type": "Feature", "properties": { "p_name": "กาฬสินธุ์", "a_name": "นามน", "t_name": "ยอดแกง", "year_act": 2565, "firstname": "งามตา", "surname": "กองคำ", "type_name": "ไม้ยืนต้น", "detail_name": "มะพร้าว", "breed_name": "มะพร้าวอ่อน", "plant_date": 20180501, "produce_date": 20221231, "act_rai_ori": 1.0, "doc_type_name": "โฉนด/น.ส.4จ", "doc_no": 18461, "doc_area": 7.6525, "moo": 1, "parcel_act": 175600077, "parcel_are": 1.038136031326947 }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 103.713471, 16.619275 ], [ 103.713234, 16.618911 ], [ 103.712974, 16.619068 ], [ 103.713234, 16.619474 ], [ 103.713471, 16.619275 ] ] ] ] } },
-{ "type": "Feature", "properties": { "p_name": "กาฬสินธุ์", "a_name": "นามน", "t_name": "สงเปลือย", "year_act": 2565, "firstname": "บุญทัน", "surname": "จุทะสงค์", "type_name": "พืชไร่", "detail_name": "ข้าวโพดเลี้ยงสัตว์", "breed_name": null, "plant_date": 20221217, "produce_date": 20230417, "act_rai_ori": 6.0, "doc_type_name": "โฉนด/น.ส.4จ", "doc_no": 4185, "doc_area": 27.8825, "moo": 3, "parcel_act": 178422732, "parcel_are": 6.1838090971998954 }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 103.83002, 16.596341 ], [ 103.830325, 16.596197 ], [ 103.830488, 16.59625 ], [ 103.831096, 16.596165 ], [ 103.831366, 16.595968 ], [ 103.831029, 16.595496 ], [ 103.829712, 16.595893 ], [ 103.829776, 16.596257 ], [ 103.83002, 16.596341 ] ] ] ] } },
-{ "type": "Feature", "properties": { "p_name": "กาฬสินธุ์", "a_name": "นามน", "t_name": "หลักเหลี่ยม", "year_act": 2565, "firstname": "นเรศ", "surname": "อินทวงศ์", "type_name": "พืชไร่", "detail_name": "ข้าวโพดเลี้ยงสัตว์", "breed_name": null, "plant_date": 20221224, "produce_date": 20230424, "act_rai_ori": 4.0, "doc_type_name": "โฉนด/น.ส.4จ", "doc_no": 4974, "doc_area": 5.2, "moo": 1, "parcel_act": 178425105, "parcel_are": 4.1251979648370414 }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 103.817774, 16.571625 ], [ 103.817719, 16.5714 ], [ 103.815105, 16.571733 ], [ 103.815104, 16.571922 ], [ 103.815825, 16.571845 ], [ 103.816949, 16.571714 ], [ 103.817774, 16.571625 ] ] ] ] } },
-{ "type": "Feature", "properties": { "p_name": "กาฬสินธุ์", "a_name": "นามน", "t_name": "หนองบัว", "year_act": 2565, "firstname": "อาทิตย์", "surname": "อุ่นบุญเรือง", "type_name": "พืชไร่", "detail_name": "ข้าวโพดเลี้ยงสัตว์", "breed_name": null, "plant_date": 20221216, "produce_date": 20230416, "act_rai_ori": 6.0, "doc_type_name": "โฉนด/น.ส.4จ", "doc_no": 14083, "doc_area": 22.8475, "moo": 8, "parcel_act": 178438243, "parcel_are": 5.7222609171644407 }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 103.83573, 16.549288 ], [ 103.837425, 16.549195 ], [ 103.837372, 16.54866 ], [ 103.836909, 16.548758 ], [ 103.835944, 16.548768 ], [ 103.83573, 16.549288 ] ] ] ] } },
-{ "type": "Feature", "properties": { "p_name": "กาฬสินธุ์", "a_name": "เมืองกาฬสินธุ์", "t_name": "ภูปอ", "year_act": 2565, "firstname": "บุญทัน", "surname": "คำยุทา", "type_name": "ไม้ยืนต้น", "detail_name": "มะพร้าว", "breed_name": "มะพร้าวอ่อน", "plant_date": 20220501, "produce_date": 20250510, "act_rai_ori": 13.0, "doc_type_name": "ส.ป.ก. 4-01ข", "doc_no": 3311, "doc_area": 23.705, "moo": 1, "parcel_act": 171061970, "parcel_are": 13.89436655058681 }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 103.597676, 16.628032 ], [ 103.598913, 16.627553 ], [ 103.598701, 16.626926 ], [ 103.598454, 16.626403 ], [ 103.598253, 16.626449 ], [ 103.598035, 16.626485 ], [ 103.59796, 16.626251 ], [ 103.598322, 16.626138 ], [ 103.59819, 16.625738 ], [ 103.597609, 16.625935 ], [ 103.59765, 16.626475 ], [ 103.597781, 16.627014 ], [ 103.597427, 16.627053 ], [ 103.597676, 16.628032 ] ] ] ] } },
-{ "type": "Feature", "properties": { "p_name": "กาฬสินธุ์", "a_name": "นามน", "t_name": "หลักเหลี่ยม", "year_act": 2565, "firstname": "ดอกซ้อน", "surname": "ชมสิน", "type_name": "ไม้ยืนต้น", "detail_name": "มะพร้าว", "breed_name": "มะพร้าวอ่อน", "plant_date": 20150901, "produce_date": 20200812, "act_rai_ori": 0.5, "doc_type_name": "โฉนด/น.ส.4", "doc_no": 4898, "doc_area": 20.5575, "moo": 4, "parcel_act": 171867275, "parcel_are": 0.54602476559033697 }, "geometry": { "type": "MultiPolygon", "coordinates": [ [ [ [ 103.815177, 16.559932 ], [ 103.815447, 16.559829 ], [ 103.815763, 16.559639 ], [ 103.815191, 16.559706 ], [ 103.815177, 16.559932 ] ] ] ] } }
-]
+    "type": "FeatureCollection",
+    "name": "polygon_survey_kalasin_2565",
+    "crs": {
+        "type": "name",
+        "properties": {
+            "name": "urn:ogc:def:crs:OGC:1.3:CRS84"
+        }
+    },
+    "features": [
+        {
+            "type": "Feature",
+            "properties": {
+                "p_name": "กาฬสินธุ์",
+                "a_name": "นามน",
+                "t_name": "สงเปลือย",
+                "year_act": 2565,
+                "firstname": "บุญเรียม",
+                "surname": "จันทร์แวว",
+                "type_name": "พืชไร่",
+                "detail_nam": "ข้าวโพดเลี้ยงสัตว์",
+                "breed_name": null,
+                "plant_date": 20221219,
+                "produce_da": 20230419,
+                "act_rai_or": 2.0,
+                "doc_type_n": "โฉนด/น.ส.4จ",
+                "doc_no": 2499,
+                "doc_area": 3.3275,
+                "moo": 5,
+                "parcel_act": 178424727,
+                "parcel_are": 2.0524985927868098
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [
+                                103.783598,
+                                16.630201
+                            ],
+                            [
+                                103.783898,
+                                16.630222
+                            ],
+                            [
+                                103.783923,
+                                16.629298
+                            ],
+                            [
+                                103.783618,
+                                16.629298
+                            ],
+                            [
+                                103.783598,
+                                16.630201
+                            ]
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "p_name": "กาฬสินธุ์",
+                "a_name": "นามน",
+                "t_name": "ยอดแกง",
+                "year_act": 2565,
+                "firstname": "งามตา",
+                "surname": "กองคำ",
+                "type_name": "ไม้ยืนต้น",
+                "detail_nam": "มะพร้าว",
+                "breed_name": "มะพร้าวอ่อน",
+                "plant_date": 20180501,
+                "produce_da": 20221231,
+                "act_rai_or": 1.0,
+                "doc_type_n": "โฉนด/น.ส.4จ",
+                "doc_no": 18461,
+                "doc_area": 7.6525,
+                "moo": 1,
+                "parcel_act": 175600077,
+                "parcel_are": 1.038136031326947
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [
+                                103.713471,
+                                16.619275
+                            ],
+                            [
+                                103.713234,
+                                16.618911
+                            ],
+                            [
+                                103.712974,
+                                16.619068
+                            ],
+                            [
+                                103.713234,
+                                16.619474
+                            ],
+                            [
+                                103.713471,
+                                16.619275
+                            ]
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "p_name": "กาฬสินธุ์",
+                "a_name": "นามน",
+                "t_name": "สงเปลือย",
+                "year_act": 2565,
+                "firstname": "บุญทัน",
+                "surname": "จุทะสงค์",
+                "type_name": "พืชไร่",
+                "detail_nam": "ข้าวโพดเลี้ยงสัตว์",
+                "breed_name": null,
+                "plant_date": 20221217,
+                "produce_da": 20230417,
+                "act_rai_or": 6.0,
+                "doc_type_n": "โฉนด/น.ส.4จ",
+                "doc_no": 4185,
+                "doc_area": 27.8825,
+                "moo": 3,
+                "parcel_act": 178422732,
+                "parcel_are": 6.1838090971998954
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [
+                                103.83002,
+                                16.596341
+                            ],
+                            [
+                                103.830325,
+                                16.596197
+                            ],
+                            [
+                                103.830488,
+                                16.59625
+                            ],
+                            [
+                                103.831096,
+                                16.596165
+                            ],
+                            [
+                                103.831366,
+                                16.595968
+                            ],
+                            [
+                                103.831029,
+                                16.595496
+                            ],
+                            [
+                                103.829712,
+                                16.595893
+                            ],
+                            [
+                                103.829776,
+                                16.596257
+                            ],
+                            [
+                                103.83002,
+                                16.596341
+                            ]
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "p_name": "กาฬสินธุ์",
+                "a_name": "นามน",
+                "t_name": "หลักเหลี่ยม",
+                "year_act": 2565,
+                "firstname": "นเรศ",
+                "surname": "อินทวงศ์",
+                "type_name": "พืชไร่",
+                "detail_nam": "ข้าวโพดเลี้ยงสัตว์",
+                "breed_name": null,
+                "plant_date": 20221224,
+                "produce_da": 20230424,
+                "act_rai_or": 4.0,
+                "doc_type_n": "โฉนด/น.ส.4จ",
+                "doc_no": 4974,
+                "doc_area": 5.2,
+                "moo": 1,
+                "parcel_act": 178425105,
+                "parcel_are": 4.1251979648370414
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [
+                                103.817774,
+                                16.571625
+                            ],
+                            [
+                                103.817719,
+                                16.5714
+                            ],
+                            [
+                                103.815105,
+                                16.571733
+                            ],
+                            [
+                                103.815104,
+                                16.571922
+                            ],
+                            [
+                                103.815825,
+                                16.571845
+                            ],
+                            [
+                                103.816949,
+                                16.571714
+                            ],
+                            [
+                                103.817774,
+                                16.571625
+                            ]
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "p_name": "กาฬสินธุ์",
+                "a_name": "นามน",
+                "t_name": "หนองบัว",
+                "year_act": 2565,
+                "firstname": "อาทิตย์",
+                "surname": "อุ่นบุญเรือง",
+                "type_name": "พืชไร่",
+                "detail_nam": "ข้าวโพดเลี้ยงสัตว์",
+                "breed_name": null,
+                "plant_date": 20221216,
+                "produce_da": 20230416,
+                "act_rai_or": 6.0,
+                "doc_type_n": "โฉนด/น.ส.4จ",
+                "doc_no": 14083,
+                "doc_area": 22.8475,
+                "moo": 8,
+                "parcel_act": 178438243,
+                "parcel_are": 5.7222609171644407
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [
+                                103.83573,
+                                16.549288
+                            ],
+                            [
+                                103.837425,
+                                16.549195
+                            ],
+                            [
+                                103.837372,
+                                16.54866
+                            ],
+                            [
+                                103.836909,
+                                16.548758
+                            ],
+                            [
+                                103.835944,
+                                16.548768
+                            ],
+                            [
+                                103.83573,
+                                16.549288
+                            ]
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "p_name": "กาฬสินธุ์",
+                "a_name": "เมืองกาฬสินธุ์",
+                "t_name": "ภูปอ",
+                "year_act": 2565,
+                "firstname": "บุญทัน",
+                "surname": "คำยุทา",
+                "type_name": "ไม้ยืนต้น",
+                "detail_nam": "มะพร้าว",
+                "breed_name": "มะพร้าวอ่อน",
+                "plant_date": 20220501,
+                "produce_da": 20250510,
+                "act_rai_or": 13.0,
+                "doc_type_n": "ส.ป.ก. 4-01ข",
+                "doc_no": 3311,
+                "doc_area": 23.705,
+                "moo": 1,
+                "parcel_act": 171061970,
+                "parcel_are": 13.89436655058681
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [
+                                103.597676,
+                                16.628032
+                            ],
+                            [
+                                103.598913,
+                                16.627553
+                            ],
+                            [
+                                103.598701,
+                                16.626926
+                            ],
+                            [
+                                103.598454,
+                                16.626403
+                            ],
+                            [
+                                103.598253,
+                                16.626449
+                            ],
+                            [
+                                103.598035,
+                                16.626485
+                            ],
+                            [
+                                103.59796,
+                                16.626251
+                            ],
+                            [
+                                103.598322,
+                                16.626138
+                            ],
+                            [
+                                103.59819,
+                                16.625738
+                            ],
+                            [
+                                103.597609,
+                                16.625935
+                            ],
+                            [
+                                103.59765,
+                                16.626475
+                            ],
+                            [
+                                103.597781,
+                                16.627014
+                            ],
+                            [
+                                103.597427,
+                                16.627053
+                            ],
+                            [
+                                103.597676,
+                                16.628032
+                            ]
+                        ]
+                    ]
+                ]
+            }
+        },
+        {
+            "type": "Feature",
+            "properties": {
+                "p_name": "กาฬสินธุ์",
+                "a_name": "นามน",
+                "t_name": "หลักเหลี่ยม",
+                "year_act": 2565,
+                "firstname": "ดอกซ้อน",
+                "surname": "ชมสิน",
+                "type_name": "ไม้ยืนต้น",
+                "detail_nam": "มะพร้าว",
+                "breed_name": "มะพร้าวอ่อน",
+                "plant_date": 20150901,
+                "produce_da": 20200812,
+                "act_rai_or": 0.5,
+                "doc_type_n": "โฉนด/น.ส.4",
+                "doc_no": 4898,
+                "doc_area": 20.5575,
+                "moo": 4,
+                "parcel_act": 171867275,
+                "parcel_are": 0.54602476559033697
+            },
+            "geometry": {
+                "type": "MultiPolygon",
+                "coordinates": [
+                    [
+                        [
+                            [
+                                103.815177,
+                                16.559932
+                            ],
+                            [
+                                103.815447,
+                                16.559829
+                            ],
+                            [
+                                103.815763,
+                                16.559639
+                            ],
+                            [
+                                103.815191,
+                                16.559706
+                            ],
+                            [
+                                103.815177,
+                                16.559932
+                            ]
+                        ]
+                    ]
+                ]
+            }
+        }
+    ]
 }
