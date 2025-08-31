@@ -379,7 +379,7 @@
             });
         }
         // 🔁 เปลี่ยน URL ด้านล่างให้เป็นลิงก์ CSV ที่ได้จากการ Publish Google Sheets
-        createPointsFromSheet('https://docs.google.com/spreadsheets/d/e/2PACX-1vQMvRHX1DX_vdSH3dKBfNHKCjSoY0A2-kfGu6S3V2sQNjMC8OE_elLAS6gdYDHCBQ/pub?gid=2027346203&single=true&output=csv', 'ตำแหน่งแปลง');
+        createPointsFromSheet('https://docs.google.com/spreadsheets/d/e/2PACX-1vQMvRHX1DX_vdSH3dKBfNHKCjSoY0A2-kfGu6S3V2sQNjMC8OE_elLAS6gdYDHCBQ/pub?output=csv', 'ตำแหน่งแปลง');
         function loadBoundaryPolygon(url, name, color = "#0000ff", dashArray = "4") {
             const layer = L.geoJSON(null, {
                 style: {
@@ -503,7 +503,7 @@
                     statusEl.textContent = "✅ เก็บข้อมูลแล้ว";
                     document.getElementById('show_status').textContent = "✅ เก็บข้อมูลแล้ว";
                     const timestamp = new Date().getTime();
-                    createPointsFromSheet(`https://docs.google.com/spreadsheets/d/e/2PACX-1vQMvRHX1DX_vdSH3dKBfNHKCjSoY0A2-kfGu6S3V2sQNjMC8OE_elLAS6gdYDHCBQ/pub?gid=2027346203&single=true&output=csv&t=${timestamp}`, 'ตำแหน่งแปลง');
+                    createPointsFromSheet(`https://docs.google.com/spreadsheets/d/e/2PACX-1vQMvRHX1DX_vdSH3dKBfNHKCjSoY0A2-kfGu6S3V2sQNjMC8OE_elLAS6gdYDHCBQ/pub?output=csv&t=${timestamp}`, 'ตำแหน่งแปลง');
                     setTimeout(closeSidebar, 1500);
                 } else {
                     statusEl.textContent = "❌ เกิดข้อผิดพลาด: " + resultResponse.message;
@@ -518,4 +518,5 @@
 </body>
 
 </html>
+
 
